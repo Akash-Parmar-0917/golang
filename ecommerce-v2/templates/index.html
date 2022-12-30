@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+			crossorigin="anonymous"
+		/>
+		<title>Document</title>
+	</head>
+	<body>
+		{{template "header" -}}
+		<section style="background-color: #eee">
+			<div class="container py-5">
+				<div class="row">
+					{{range .products}}
+					<div class="col-md-12 col-lg-3 mb-4 mb-lg-4">
+						<div class="card w-100">
+							<!-- <div class="d-flex justify-content-between p-3">
+								<p class="lead mb-0">Today's Combo Offer</p>
+								<div
+									class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+									style="width: 35px; height: 35px"
+								>
+									<p class="text-white mb-0 small">x4</p>
+								</div>
+							</div> -->
+							<!-- <img
+								src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/4.webp"
+								class="card-img-top"
+								alt="Laptop"
+							/> -->
+							<img
+								class="card-img-top"
+								src="/static/download.svg"
+								alt="Card image cap"
+							/>
+							<div class="card-body">
+								<div class="d-flex justify-content-between">
+									<p class="small mb-lg-2">
+										<a href="#!" class="text-muted"
+											>{{if eq .Category.CategoryName ""}} NA {{else}}
+											{{.Category.CategoryName}} {{end}}</a
+										>
+									</p>
+									<!-- <p class="small text-danger"><s>${{.Price}}</s></p> -->
+								</div>
+
+								<div class="d-flex justify-content-between mb-1">
+									<h5 class="blockquote mb-0">{{.Name}}</h5>
+									<h5 class="text-dark mb-0">${{.Price}}</h5>
+								</div>
+
+								<div class="d-flex justify-content-between mb-3">
+									<p class="text-muted mb-0">
+										Available:
+										<span class="fw-bold">{{.Inventory.Quantity}}</span>
+									</p>
+									<div class="ms-auto text-warning">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div>
+								<a href="/product/{{.ID}}" class="btn btn-primary btn-block"
+									>view product</a
+								>
+								<!-- <a
+									href="#"
+									class="btn btn-primary btn-block"
+									style="background-color: rgb(58, 58, 170)"
+									>Add to Cart</a
+								> -->
+							</div>
+						</div>
+					</div>
+					{{end}}
+				</div>
+			</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					{{if gt .pagination.CurrentPage 1}}
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.PreviousPage}}?{{.pagination.ReqUrl}}"
+							>Previous</a
+						>
+					</li>
+					{{else}}
+					<li class="page-item disabled">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.PreviousPage}}?{{.pagination.ReqUrl}}"
+							>Previous</a
+						>
+					</li>
+					{{end}} {{if gt .pagination.CurrentPage 3}}
+					<li class="page-item">
+						<a class="page-link" href="/products/1?{{.pagination.ReqUrl}}">1</a>
+					</li>
+					{{end}} {{if gt .pagination.CurrentPage 4}}
+					<li class="page-item disabled"><a class="page-link">...</a></li>
+					{{end}}{{if gt .pagination.TwoBelow 0}}
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.TwoBelow}}?{{.pagination.ReqUrl}}"
+							>{{.pagination.TwoBelow}}</a
+						>
+					</li>
+					{{end}} {{if gt .pagination.PreviousPage 0}}
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.PreviousPage}}?{{.pagination.ReqUrl}}"
+							>{{.pagination.PreviousPage}}</a
+						>
+					</li>
+					{{end}}
+					<li class="page-item active">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.CurrentPage}}?{{.pagination.ReqUrl}}"
+							>{{.pagination.CurrentPage}}</a
+						>
+					</li>
+					{{if le .pagination.NextPage .pagination.TotalPages}}
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.NextPage}}?{{.pagination.ReqUrl}}"
+							>{{.pagination.NextPage}}</a
+						>
+					</li>
+					{{end}} {{if le .pagination.TwoAfter .pagination.TotalPages}}
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.TwoAfter}}?{{.pagination.ReqUrl}}"
+							>{{.pagination.TwoAfter}}</a
+						>
+					</li>
+					{{end}} {{if lt .pagination.TwoAfter .pagination.TotalPages}}
+					<li class="page-item disabled">
+						<a class="page-link">...</a>
+					</li>
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.TotalPages}}?{{.pagination.ReqUrl}}"
+							>{{.pagination.TotalPages}}</a
+						>
+					</li>
+					{{end}} {{if lt .pagination.TwoAfter .pagination.TotalPages}}
+					<li class="page-item">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.NextPage}}?{{.pagination.ReqUrl}}"
+							>Next</a
+						>
+					</li>
+					{{else}}
+					<li class="page-item disabled">
+						<a
+							class="page-link"
+							href="/products/{{.pagination.NextPage}}?{{.pagination.ReqUrl}}"
+							>Next</a
+						>
+					</li>
+					{{end}}
+				</ul>
+			</nav>
+		</section>
+
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+			integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+			integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>

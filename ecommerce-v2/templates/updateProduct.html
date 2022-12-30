@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>update PRODUCT</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="form">
+				<h2>PRODUCT DETAILS</h2>
+				<form action="/product/{{.product.ID}}" method="post">
+					<div class="input">
+						<label for="prodcutName">Name</label>
+						<input
+							type="text"
+							name="prodcutName"
+							value="{{.product.Name}}"
+							placeholder="Product Name"
+						/>
+					</div>
+					<div class="input specification">
+						<div class="specification-header">
+							<label for="keys[]">Specifications</label>
+							<a href="#" id="addButton">&plus;</a>
+						</div>
+						<div class="specification-fields">
+							{{range $key,$value:= .specification}}
+							<div class="flex">
+								<input
+									type="text"
+									name="key[]"
+									placeholder="key"
+									value="{{$key}}"
+								/>
+								<input
+									type="text"
+									name="value[]"
+									placeholder="value"
+									value="{{$value}}"
+								/>
+								<a class="delete" onclick="removeInput(event)">&times;</a>
+							</div>
+							{{end}}
+						</div>
+					</div>
+					<div class="input">
+						<label for="SKU">SKU</label>
+						<input
+							type="text"
+							name="SKU"
+							value="{{.product.SKU}}"
+							placeholder="SKU"
+						/>
+					</div>
+
+					<div class="input">
+						<label for="category">Category</label>
+						<select name="category">
+							{{range .categories}} {{if eq .ID $.product.CategoryId}}
+							<option value="{{.ID}}" selected>{{.CategoryName}}</option>
+							{{else}}
+							<option value="{{.ID}}">{{.CategoryName}}</option>
+							{{end}} {{end}}
+						</select>
+					</div>
+
+					<div class="input">
+						<label for="price">Price</label>
+						<input
+							type="text"
+							name="price"
+							value="{{.product.Price}}"
+							placeholder="200"
+						/>
+					</div>
+					<div class="input">
+						<label for="quantity">Quantity</label>
+						<input
+							type="text"
+							name="quantity"
+							value="{{.product.Inventory.Quantity}}"
+							placeholder="200"
+						/>
+					</div>
+					<button type="submit" class="btn btn-primary">update</button>
+				</form>
+			</div>
+		</div>
+
+		<script src="static/javascripts/addProduct/addProduct.js"></script>
+	</body>
+</html>

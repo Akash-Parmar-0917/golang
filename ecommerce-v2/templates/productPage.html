@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{.Name}}</title>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li>{{.Name}}</li>
+				<li>{{.SKU}}</li>
+				<li>{{.Category.CategoryName}}</li>
+				<li>{{.Price}}</li>
+				<li>Specification</li>
+				<ul>
+					{{range $key, $value := jsonToMap .Specification}}
+					<li>{{$key}}:{{$value}}</li>
+					{{else}}
+					<li>not Available</li>
+					{{end}}
+				</ul>
+			</ul>
+			<form action="/addcart" method="get">
+				<input type="text" />
+				<button type="submit" name="productID" value="{{.ID}}" class="btn-link">
+					Add to Cart
+				</button>
+			</form>
+			<form action="/updateproduct" method="get">
+				<button type="submit" name="productID" value="{{.ID}}" class="btn-link">
+					updateproduct
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

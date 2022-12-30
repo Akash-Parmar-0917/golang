@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ADD PRODUCT</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="form">
+				<h2>PRODUCT DETAILS</h2>
+				<form action="/product" method="post">
+					<div class="input">
+						<label for="prodcutName">Name</label>
+						<input type="text" name="prodcutName" placeholder="Product Name" />
+					</div>
+					<div class="input specification">
+						<div class="specification-header">
+							<label for="keys[]">Specifications</label>
+							<a href="#" id="addButton">&plus;</a>
+						</div>
+						<div class="specification-fields"></div>
+					</div>
+					<div class="input">
+						<label for="sku">SKU</label>
+						<input type="text" name="sku" placeholder="SKU" />
+					</div>
+
+					<div class="input">
+						<label for="price">Price</label>
+						<input type="text" name="price" placeholder="200" />
+					</div>
+					<div class="input">
+						<label for="quantity">quantity</label>
+						<input type="text" name="quantity" placeholder="0" />
+					</div>
+					<div class="input">
+						<label for="category">Category</label>
+						<select name="category">
+							{{range .}}
+							<option value="{{.ID}}">{{.CategoryName}}</option>
+							{{end}}
+						</select>
+					</div>
+					<!-- {{/*
+					<div class="input">
+						<input type="submit" value="submit" />
+					</div>
+					*/}} -->
+					<button type="submit" class="btn btn-primary">Save</button>
+				</form>
+			</div>
+		</div>
+
+		<script src="/static/javascripts/addProduct/addProduct.js"></script>
+	</body>
+</html>
